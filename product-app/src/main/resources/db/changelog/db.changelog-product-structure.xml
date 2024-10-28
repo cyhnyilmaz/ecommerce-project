@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="product-dev-structure-001" author="dev01">
+        <comment>Product Category - Create Table Changeset</comment>
+        <createSequence dataType="bigint" incrementBy="1" sequenceName="product_category_seq" startValue="1"/>
+        <createTable tableName="product_category">
+            <column name="id" type="bigint" defaultValueSequenceNext="product_category_seq">
+                <constraints primaryKey="true" primaryKeyName="product_category_pkey"/>
+            </column>
+            <column name="create_time" type="timestamp"/>
+            <column name="update_time" type="timestamp"/>
+            <column name="name" type="varchar(50)">
+                <constraints unique="true"/>
+            </column>
+            <column name="parent_id" type="bigint">
+                <constraints foreignKeyName="fk_product_category_parent" references="product_category(id)"
+                             nullable="true"/>
+            </column>
+            <column name="description" type="varchar(250)"/>
+            <column name="key" type="varchar(30)"/>
+            <column name="is_active" type="boolean" defaultValueBoolean="true"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="product-dev-structure-002" author="dev01">
+        <comment>Product - Create Table Changeset</comment>
+        <createSequence dataType="bigint" incrementBy="1" sequenceName="product_seq" startValue="1"/>
+        <createTable tableName="product">
+            <column name="id" type="bigint" defaultValueSequenceNext="product_seq">
+                <constraints primaryKey="true" primaryKeyName="product_pkey"/>
+            </column>
+            <column name="create_time" type="timestamp"/>
+            <column name="update_time" type="timestamp"/>
+            <column name="name" type="varchar(50)">
+                <constraints unique="true"/>
+            </column>
+            <column name="description" type="varchar(250)"/>
+            <column name="key" type="varchar(30)"/>
+            <column name="stock" type="bigint" defaultValueNumeric="0"/>
+            <column name="gender" type="smallint"/>
+            <column name="version" type="int"/>
+            <column name="category" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_product_product_category"
+                             references="product_category(id)"/>
+            </column>
+            <column name="is_active" type="boolean" defaultValueBoolean="true"/>
+        </createTable>
+
+    </changeSet>
+
+</databaseChangeLog>

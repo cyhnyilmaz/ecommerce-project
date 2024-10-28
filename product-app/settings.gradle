@@ -1,0 +1,13 @@
+rootProject.name = 'product-app'
+
+include ':product-dto'
+project(":product-dto").projectDir = file("product-dto")
+
+include ':product-service'
+project(":product-service").projectDir = file("product-service")
+
+include ':product-constant'
+project(":product-constant").projectDir = file("product-constant")
+
+include ':product-db'
+project(":product-db").projectDir = file("product-db")

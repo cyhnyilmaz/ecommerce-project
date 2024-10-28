@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="user-dev-test-data-001" author="dev01">
+        <insert tableName="user_address">
+            <column name="id" valueSequenceNext="user_address_seq"/>
+            <column name="create_time" valueDate="now()"/>
+            <column name="update_time" value="now()"/>
+            <column name="country" value="Turkey"/>
+            <column name="city" value="Ankara"/>
+            <column name="town" value="Cankaya"/>
+            <column name="district" value="Mavi"/>
+            <column name="key" value="test_usr_adr_1"/>
+            <column name="address_context_1" value="1159 Sok. 1/12 "/>
+            <column name="post_code" value="06555"/>
+            <column name="phone" value="5551237890"/>
+        </insert>
+        <insert tableName="user_address">
+            <column name="id" valueSequenceNext="user_address_seq"/>
+            <column name="create_time" valueDate="now()"/>
+            <column name="update_time" value="now()"/>
+            <column name="country" value="Turkey"/>
+            <column name="city" value="Konya"/>
+            <column name="town" value="Meram"/>
+            <column name="district" value="Fatih Cd."/>
+            <column name="key" value="test_usr_adr_2"/>
+            <column name="address_context_1" value="130B/3 "/>
+            <column name="post_code" value="42111"/>
+            <column name="phone" value="5551237891"/>
+        </insert>
+    </changeSet>
+    <changeSet id="user-dev-test-data-002" author="dev01">
+        <insert tableName="users">
+            <column name="id" valueSequenceNext="user_seq"/>
+            <column name="create_time" valueDate="now()"/>
+            <column name="update_time" value="now()"/>
+            <column name="email" value="ayilmaz@gmail.com"/>
+            <column name="password" value="pass123"/>
+            <column name="full_name" value="Ahmet Yılmaz"/>
+            <column name="country" value="Turkey"/>
+            <column name="phone" value="5551237891"/>
+            <column name="default_billing_address" valueComputed="(select ua.id from user_address ua where ua.key ='test_usr_adr_1')"/>
+            <column name="default_shipping_address" valueComputed="(select ua.id from user_address ua where ua.key ='test_usr_adr_2')"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>

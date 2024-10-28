@@ -1,0 +1,22 @@
+http:
+  routers:
+    product-microservice:
+      rule: "PathPrefix(`/product-service`)"
+      service: "product-service"
+      entryPoints:
+        - web
+    order-microservice:
+      rule: "Path(`/order-service`)"
+      service: "order-service"
+      entryPoints:
+        - web
+
+  services:
+    product-service:
+      loadBalancer:
+        servers:
+          - url: "http://host.docker.internal:product-app:7000"
+    order-service:
+      loadBalancer:
+        servers:
+          - url: "http://host.docker.internal:7001"

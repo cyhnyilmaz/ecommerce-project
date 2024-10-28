@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="product-dev-test-data-001" author="dev01">
+        <insert tableName="product_category">
+            <column name="id" valueSequenceNext="product_category_seq"/>
+            <column name="create_time" valueDate="now()" />
+            <column name="update_time" value="now()" />
+            <column name="name" value="Kategoriler" />
+            <column name="key" value="main_category" />
+            <column name="description" value="Kategoriler Desc" />
+            <column name="is_active" valueBoolean="true" />
+            <column name="parent_id" value="null" />
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

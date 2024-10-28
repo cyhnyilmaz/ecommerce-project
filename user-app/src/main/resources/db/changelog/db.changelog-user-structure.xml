@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="user-dev-structure-001" author="dev01">
+        <comment>User Address - Create Table Changeset</comment>
+        <createSequence dataType="bigint" incrementBy="1" sequenceName="user_address_seq" startValue="1"/>
+        <createTable tableName="user_address">
+            <column name="id" type="bigint" defaultValueSequenceNext="user_address_seq">
+                <constraints primaryKey="true" primaryKeyName="user_address_pkey"/>
+            </column>
+            <column name="create_time" type="timestamp"/>
+            <column name="update_time" type="timestamp"/>
+            <column name="country" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="city" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="town" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="district" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address_context_1" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="address_context_2" type="varchar(100)"/>
+            <column name="post_code" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="varchar(30)"/>
+            <column name="key" type="varchar(30)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="user-dev-structure-002" author="dev01">
+        <comment>Users - Create Table Changeset</comment>
+        <createSequence dataType="bigint" incrementBy="1" sequenceName="user_seq" startValue="1"/>
+        <createTable tableName="users">
+            <column name="id" type="bigint" defaultValueSequenceNext="user_seq">
+                <constraints primaryKey="true" primaryKeyName="user_pkey"/>
+            </column>
+            <column name="create_time" type="timestamp"/>
+            <column name="update_time" type="timestamp"/>
+            <column name="email" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="varchar(50)"/>
+            <column name="full_name" type="varchar(100)"/>
+            <column name="default_billing_address" type="bigint">
+                <constraints foreignKeyName="fk_user_billing_address" references="user_address(id)"
+                             nullable="true"/>
+            </column>
+            <column name="default_shipping_address" type="bigint">
+                <constraints foreignKeyName="fk_user_shipping_address" references="user_address(id)"
+                             nullable="true"/>
+            </column>
+            <column name="country" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone" type="varchar(30)"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>

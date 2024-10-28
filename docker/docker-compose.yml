@@ -1,0 +1,64 @@
+services:
+  product-db-dev:
+    container_name: product-db-dev-container
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: productDevUser
+      POSTGRES_PASSWORD : Dev_PaSSw0rd
+      POSTGRES_DB: PRODUCT_DEV
+    ports:
+      - "5435:5432"
+  order-db-dev:
+    container_name: order-db-dev-container
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: orderDevUser
+      POSTGRES_PASSWORD : Dev_PaSSw0rd
+      POSTGRES_DB: ORDER_DEV
+    ports:
+      - "5434:5432"    # volumes:
+      
+  user-db-dev:
+    container_name: user-db-dev-container
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: userDevUser
+      POSTGRES_PASSWORD : Dev_PaSSw0rd
+      POSTGRES_DB: USER_DEV
+    ports:
+      - "5433:5432"   
+  traefik:
+    image: traefik:v2.5
+    container_name: traefik
+    ports:
+      - "80:80"       # HTTP Port
+      - "8080:8080"   # Traefik Dashboard
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.file.filename=/dynamic-conf.yml"
+      - "--entrypoints.web.address=:80"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "./exposed_config/traefik-dynamic-conf.yml:/dynamic-conf.yml" # Dynamic config file
+  zookeeper:
+    image: 'bitnami/zookeeper:latest'
+    environment:
+      - ZOO_ENABLE_AUTH=yes
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    ports:
+      - '2181:2181'
+
+  kafka:
+    image: 'bitnami/kafka:latest'
+    ports:
+      - '9092:9092'
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
+      - KAFKA_CREATE_TOPICS=order-created-topic:1:1,stock-updated-topic:1:1,out-of-stock-topic:1:1

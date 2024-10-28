@@ -1,0 +1,39 @@
+server:
+  port: 7000
+spring:
+  application:
+    name: product-app
+
+  datasource:
+    url: jdbc:postgresql://localhost:5435/PRODUCT_DEV
+    username: productDevUser
+    password: Dev_PaSSw0rd
+    hikari:
+      maximum-pool-size: 5
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    database: POSTGRESQL
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        enable_lazy_load_no_trans: true
+        temp:
+          use_jdbc_metadata_defaults: false
+  liquibase:
+    change-log: db/changelog/db.changelog-master.xml
+    drop-first: true
+  kafka:
+    bootstrap-servers: localhost:9092
+    group-id: product-app-group
+    consumer:
+      topic: order-created-topic
+    producer:
+      failed-topic: out-of-stock-topic
+      success-topic: stock-updated-topic
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/

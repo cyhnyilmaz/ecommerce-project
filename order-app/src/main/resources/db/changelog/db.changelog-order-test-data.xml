@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+<!--    <changeSet id="product-dev-test-data-001" author="dev01">-->
+<!--        <insert tableName="product_category">-->
+<!--            <column name="id" valueSequenceNext="product_category_seq"/>-->
+<!--            <column name="create_time" valueDate="now()" />-->
+<!--            <column name="update_time" value="now()" />-->
+<!--            <column name="name" value="Electronics" />-->
+<!--            <column name="key" value="electronic" />-->
+<!--            <column name="description" value="Electronics Category" />-->
+<!--            <column name="parent_id" valueComputed="(select pc.id from product_category pc where pc.parent_id is null)" />-->
+<!--        </insert>-->
+<!--         </changeSet>-->
+<!--    <changeSet id="product-dev-test-data-002" author="dev01">-->
+<!--        <insert tableName="product_category">-->
+<!--            <column name="id" valueSequenceNext="product_category_seq"/>-->
+<!--            <column name="create_time" valueDate="now()" />-->
+<!--            <column name="update_time" value="now()" />-->
+<!--            <column name="name" value="SuperMarket" />-->
+<!--            <column name="description" value="SuperMarket Category" />-->
+<!--            <column name="key" value="supermarket" />-->
+<!--            <column name="parent_id" valueComputed="(select pc.id from product_category pc where pc.parent_id is null)" />-->
+<!--        </insert>-->
+<!--        <insert tableName="product_category">-->
+<!--            <column name="id" valueSequenceNext="product_category_seq"/>-->
+<!--            <column name="create_time" valueDate="now()" />-->
+<!--            <column name="update_time" value="now()" />-->
+<!--            <column name="name" value="Food" />-->
+<!--            <column name="description" value="Food Category" />-->
+<!--            <column name="key" value="food" />-->
+<!--            <column name="parent_id" valueComputed="(select pc.id from product_category pc where pc.key='supermarket')" />-->
+<!--        </insert>-->
+<!--        <insert tableName="product_category">-->
+<!--            <column name="id" valueSequenceNext="product_category_seq"/>-->
+<!--            <column name="create_time" valueDate="now()" />-->
+<!--            <column name="update_time" value="now()" />-->
+<!--            <column name="name" value="Nut" />-->
+<!--            <column name="description" value="Nut Category" />-->
+<!--            <column name="key" value="supermarket" />            -->
+<!--            <column name="parent_id" valueComputed="(select pc.id from product_category pc where pc.key='food')" />-->
+<!--        </insert>-->
+<!--    </changeSet>-->
+</databaseChangeLog>

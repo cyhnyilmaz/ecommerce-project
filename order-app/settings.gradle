@@ -1,0 +1,13 @@
+rootProject.name = 'order-app'
+
+include ':order-dto'
+project(":order-dto").projectDir = file("order-dto")
+
+include ':order-service'
+project(":order-service").projectDir = file("order-service")
+
+include ':order-constant'
+project(":order-constant").projectDir = file("order-constant")
+
+include ':order-db'
+project(":order-db").projectDir = file("order-db")

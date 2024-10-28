@@ -1,0 +1,13 @@
+rootProject.name = 'user-app'
+
+include ':user-dto'
+project(":user-dto").projectDir = file("user-dto")
+
+include ':user-service'
+project(":user-service").projectDir = file("user-service")
+
+include ':user-constant'
+project(":user-constant").projectDir = file("user-constant")
+
+include ':user-db'
+project(":user-db").projectDir = file("user-db")

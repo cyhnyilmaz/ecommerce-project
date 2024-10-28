@@ -1,0 +1,188 @@
+{
+	"info": {
+		"_postman_id": "27b74bda-9f3e-4a3e-8236-5ed516f5aa6e",
+		"name": "PttEm",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6014720"
+	},
+	"item": [
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Read Product By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "host.docker.internal:7000/product/read/1",
+							"host": [
+								"host",
+								"docker",
+								"internal"
+							],
+							"port": "7000",
+							"path": [
+								"product",
+								"read",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create A Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Ceviz\",\r\n    \"description\": \"Konya Ceviz\",\r\n    \"isActive\": true,\r\n    \"stock\": 10254,\r\n    \"category\": {\r\n        \"id\": 7\r\n    },\r\n    \"gender\": 0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "host.docker.internal:7000/product/createProduct",
+							"host": [
+								"host",
+								"docker",
+								"internal"
+							],
+							"port": "7000",
+							"path": [
+								"product",
+								"createProduct"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product Stock",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "host.docker.internal:7000/product/updateProductStock/1/15",
+							"host": [
+								"host",
+								"docker",
+								"internal"
+							],
+							"port": "7000",
+							"path": [
+								"product",
+								"updateProductStock",
+								"1",
+								"15"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Read Order By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:7001/order/read/1",
+							"host": [
+								"localhost"
+							],
+							"port": "7001",
+							"path": [
+								"order",
+								"read",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Place Order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"customerId\": 1,\r\n    \"productId\": 1,\r\n    \"price\": 350,\r\n    \"quantity\": 2,\r\n    \"shippingAddress\": 1,\r\n    \"orderEmail\": \"bc@lll.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:7000/order/placeOrder",
+							"host": [
+								"localhost"
+							],
+							"port": "7000",
+							"path": [
+								"order",
+								"placeOrder"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Read User By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:7001/order/read/1",
+							"host": [
+								"localhost"
+							],
+							"port": "7001",
+							"path": [
+								"order",
+								"read",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Is User Exists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:7001/order/isUserExist/1",
+							"host": [
+								"localhost"
+							],
+							"port": "7001",
+							"path": [
+								"order",
+								"isUserExist",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

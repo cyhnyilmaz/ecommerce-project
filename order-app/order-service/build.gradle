@@ -1,0 +1,37 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.pttem'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':order-dto')
+    implementation project(':order-constant')
+    implementation project(':order-db')
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    compileOnly 'org.projectlombok:lombok:1.18.34'
+    annotationProcessor 'org.projectlombok:lombok:1.18.34'
+    implementation group: 'org.springframework.data' , name: 'spring-data-commons',version: '3.3.2'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa', version: '3.3.2'
+
+    annotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.5.5.Final'
+    testAnnotationProcessor group: 'org.mapstruct', name: 'mapstruct-processor', version: '1.5.5.Final'
+    implementation group: 'org.mapstruct', name: 'mapstruct', version: '1.5.5.Final'
+
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.14.2'
+    implementation group: 'org.springframework.kafka', name: 'spring-kafka', version: '3.2.4'
+    implementation group: 'org.springframework', name: 'spring-web', version: '6.1.14'
+
+}
+
+test {
+    useJUnitPlatform()
+}

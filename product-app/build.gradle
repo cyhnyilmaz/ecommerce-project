@@ -1,0 +1,90 @@
+import com.bmuschko.gradle.docker.tasks.container.*
+import com.bmuschko.gradle.docker.tasks.image.*
+import com.bmuschko.gradle.docker.tasks.network.*
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.3.5'
+	id 'io.spring.dependency-management' version '1.1.6'
+	id 'com.bmuschko.docker-remote-api' version '9.2.1'
+}
+
+group = 'com.pttem'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('springCloudVersion', "2023.0.3")
+}
+
+dependencies {
+	implementation project(":product-dto")
+	implementation project(":product-service")
+	implementation project(":product-constant")
+	implementation project(":product-db")
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+	implementation 'org.liquibase:liquibase-core'
+	implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
+	runtimeOnly 'org.postgresql:postgresql'
+
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+
+	compileOnly 'org.projectlombok:lombok:1.18.34'
+	annotationProcessor 'org.projectlombok:lombok:1.18.34'
+
+	implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.6.0'
+	implementation group: 'org.springframework.cloud', name: 'spring-cloud-netflix-eureka-client', version: '4.1.2'
+
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+
+String appDockerImageName = "pttem/product-app"
+
+task dockerRemoveProductImage(type: DockerRemoveImage) {
+	group = "product app build"
+	description = "Removes Product Application docker image"
+	targetImageId { appDockerImageName }
+	onError {
+		System.out.println("No previous image to delete")
+	}
+}
+
+task dockerBuildProductImage(type: DockerBuildImage, dependsOn: [dockerRemoveProductImage]) {
+	group = "product app build"
+	description = "Creates Product Application docker image. It removes any previous images, creates a deployable Spring Boot jar file and bundles everything in a docker image"
+	doFirst {
+		println 'Starting copy for Dockerfile...'
+		copy {
+			from './Dockerfile'
+			into 'build/libs'
+		}
+		println 'Starting copy for config files...'
+	}
+	description = "Builds ${appDockerImageName} docker image."
+	inputDir.set(file('build/libs'))
+	images.add(appDockerImageName)
+}
